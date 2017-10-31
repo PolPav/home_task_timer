@@ -12,15 +12,16 @@ body {
 
 .wrap_timer_button{
   position:absolute;
-  left: 350px;
+  left: 250px;
   margin-top: 10px;
   width: 100px;
   height: 50px;
   background-color: white;
 }
 
-.wrap_timer_stopped{
-  margin-left: 300px;
+.wrap_timer_input{
+  margin-left: 200px;
+  margin-top: 10px;
   text-align: center;
   font-size: 20px;
   width: 200px;
@@ -29,9 +30,14 @@ body {
   border: 1px lightskyblue solid;
 }
 
-.wrap_timer_stopped h3{
-  margin-top: 45%;
-  color: lightskyblue;
+.wrap_timer_input_task{
+  margin-left: 270px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 20px;
+  width: 230px;
+  height: 30px;
+  border: 1px lightskyblue solid;
 }
 
 .wrap_timer_table{
