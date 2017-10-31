@@ -9,67 +9,64 @@ class App extends Component {
       this.state = {
 
           pastTime: 0,
-          startTimer: 1,
-          buttonText: 'Start',
-          workedTime: '',
-          timeStart: '',
-          timeEnd: ''
+          toggleButton: true,
+
+          timeStart: {
+            dateMs: 0,
+          },
       };
   }
 
-    addTask = () => {
+    addTask = (start = null, past = null) => {
+        const id = Math.random()*start;
+        const startTime = new Date(start).toString();
+        const endTime = new Date(start+past).toString();
+        let seconds = Math.round(past/1000);
+
+        if(seconds < 10){
+          seconds = `0${seconds}`;
+        }
+
+      const pastTime = `00:00:${seconds}`;
+
         if(this.taskNameInput.value !== ''){
-            this.props.onAddTask({name: this.taskNameInput.value, spentTime: this.timerInput.value});
+            this.props.onAddTask({id: id, name: this.taskNameInput.value, startTime: startTime, endTime: endTime, spentTime: pastTime});
             this.taskNameInput.value = '';
         }
     };
 
-    toggleTimer = () => {
-        console.log(`start: ${this.state.timeStart}`);
+    startTimer = (e) => {
+      if(this.state.toggleButton === true) {
+
+        this.setState({toggleButton: false});
+        e.target.style.display = 'none';
+        const stop = document.querySelector("#stopTimer");
+              stop.style.display = 'inline';
+
         this.nowDate = Date.now();
-        const res = initTimer(this.state.pastTime);
 
-        if(res.hours === '00' && res.minutes === '00' && res.seconds ==='00'){
-            this.setState({workedTime: ''});
+        let dateMs = Date.now();
+        this.setState({timeStart: {dateMs: dateMs}});
 
-        } else {
-            this.setState({workedTime: `${res.hours}:${res.minutes}:${res.seconds}`});
-        }
+        this.timer = setInterval(
+          () => this.differenceTime(),
+          1000
+        );
+      }
+    };
 
-        if(this.state.startTimer === 1){
-            const dateStart = new Date();
-            let hours = dateStart.getHours();
-            let minutes = dateStart.getMinutes();
-            let seconds = dateStart.getSeconds();
+    stopTimer = (e) => {
+      if(this.state.toggleButton === false) {
+        this.setState({toggleButton: true});
+        e.target.style.display = 'none';
 
-            if(seconds < 10){
-                seconds = `0${seconds}`;
-            }
-            if(minutes < 10){
-                minutes = `0${minutes}`;
-            }
-            if(hours < 10){
-                hours = `0${hours}`;
-            }
+        const start = document.querySelector("#startTimer");
+              start.style.display = 'inline';
 
-            this.setState({timeStart: `${hours}:${minutes}:${seconds}`});
-            this.timer = setInterval(
-                () => this.differenceTime(),
-                1000
-            );
-
-            this.setState({buttonText: 'Stop'});
-            this.state.startTimer = 0;
-
-        }
-
-        else if(this.state.startTimer === 0) {
-            this.addTask();
-            clearInterval(this.timer);
-
-            this.setState({buttonText: 'Start'});
-            this.state.startTimer = 1;
-        }
+        const startDate = this.state.timeStart;
+        this.addTask(startDate.dateMs, this.state.pastTime);
+        clearInterval(this.timer);
+      }
     };
 
     differenceTime = () => {
@@ -79,14 +76,17 @@ class App extends Component {
 
     render() {
     console.log(this.props.tasksStore);
+
     const timerInit = initTimer(this.state.pastTime);
+
     return (
       <div className='wrap_timer'>
           <input className="wrap_timer_input_task" type="text" ref={(input) => {this.taskNameInput = input}}/>
           <div className='wrap_timer'>
               <input className="wrap_timer_stopped" value={`${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`} readOnly ref={(input) => {this.timerInput = input}}/>
               <div className='wrap_timer_buttons'>
-                  <button id='toggleButton' className='wrap_timer_button' onClick={this.toggleTimer}>{this.state.buttonText}</button>
+                  <button id='stopTimer' className='wrap_timer_button' onClick={e => this.stopTimer(e)}>Stop</button>
+                  <button id='startTimer' className='wrap_timer_button' onClick={e => this.startTimer(e)}>Start</button>
               </div>
           </div>
           <table className="wrap_timer_table">
@@ -102,10 +102,10 @@ class App extends Component {
                     {this.props.tasksStore.map((task, idx) =>
                         <tr key={idx} className="wrap_timer_table_tr">
                             <td className="wrap_timer_table_tr_td">{task.name}</td>
-                            <td className="wrap_timer_table_tr_td">{this.state.timeStart}</td>
+                            <td className="wrap_timer_table_tr_td">{task.startTime}</td>
                             <td className="wrap_timer_table_tr_td">{task.endTime}</td>
                             <td className="wrap_timer_table_tr_td">{task.spentTime}</td>
-                            <td className="wrap_timer_table_tr_td"><button className="wrap_timer_table_button" onClick={this.InfoTask}>Info</button></td>
+                            <td className="wrap_timer_table_tr_td"><button className="wrap_timer_table_button">Info</button></td>
                             <td className="wrap_timer_table_tr_td"><button className="wrap_timer_table_button">Delete</button></td>
                         </tr>
                     )}
