@@ -19,8 +19,8 @@ class App extends Component {
 
     addTask = (start = null, past = null) => {
         const id = Math.random()*start;
-        const startTime = new Date(start).toString();
-        const endTime = new Date(start+past).toString();
+        const startTime = new Date(start);
+        const endTime = new Date(start+past);
         let seconds = Math.round(past/1000);
 
         if(seconds < 10){
@@ -45,7 +45,7 @@ class App extends Component {
 
         this.nowDate = Date.now();
 
-        let dateMs = Date.now();
+        const dateMs = Date.now();
         this.setState({timeStart: {dateMs: dateMs}});
 
         this.timer = setInterval(
@@ -102,8 +102,8 @@ class App extends Component {
                     {this.props.tasksStore.map((task, idx) =>
                         <tr key={idx} className="wrap_timer_table_tr">
                             <td className="wrap_timer_table_tr_td">{task.name}</td>
-                            <td className="wrap_timer_table_tr_td">{task.startTime}</td>
-                            <td className="wrap_timer_table_tr_td">{task.endTime}</td>
+                            <td className="wrap_timer_table_tr_td">{task.startTime.toString()}</td>
+                            <td className="wrap_timer_table_tr_td">{task.endTime.toString()}</td>
                             <td className="wrap_timer_table_tr_td">{task.spentTime}</td>
                             <td className="wrap_timer_table_tr_td"><button className="wrap_timer_table_button">Info</button></td>
                             <td className="wrap_timer_table_tr_td"><button className="wrap_timer_table_button">Delete</button></td>
