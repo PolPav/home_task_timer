@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import taskStore from './tasks';
+import tasksStore from './tasks';
+import infoTask from './infoTask';
 
 export const allReducers = combineReducers({
-    tasks: taskStore
+    tasks: tasksStore,
+    currentTask: infoTask
 });

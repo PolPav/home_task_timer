@@ -1,24 +1,18 @@
-export default function taskStore(state = [], action) {
+
+export default function tasksStore(state = null, action) {
+    const key = "allTasks";
+
     if(action.type === "ADD_TASK"){
-        return [...state, action.payload];
+        const $array = [...state, action.payload];
+        const str = JSON.stringify($array);
+        localStorage.setItem(key, str);
+
+        return JSON.parse(localStorage.getItem(key));
     }
 
-    if(action.type === "INFO_TASK"){
-        return action.payload;
+    if(JSON.parse(localStorage.getItem(key)) !== null){
+      return JSON.parse(localStorage.getItem(key));
     }
-    return state;
+
+    return state
 }
-
-// function getTasksStore(state = [], action) {
-//     const key = "tasksStorage";
-//
-//     if(action.type === "ADD_TASK"){
-//         const $array = [...state, action.payload];
-//         const str = JSON.stringify($array);
-//         localStorage.setItem(key, str);
-//
-//         return JSON.parse(localStorage.getItem(key));
-//     }
-//
-//     return state;
-// }

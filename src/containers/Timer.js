@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {initTimer} from "../helpers/initTimer";
+import Button from 'material-ui/Button';
 
 class Timer extends Component {
 
@@ -85,7 +86,7 @@ class Timer extends Component {
         <div className='wrap_timer'>
           <input className="wrap_timer_input" value={`${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`} readOnly/>
           <div className='wrap_timer_buttons'>
-            <button className='wrap_timer_button' onClick={toggleButton ? this.startTimer : this.stopTimer}>{ toggleButton ? 'Start' : 'Stop'}</button>
+            <Button raised className='wrap_timer_button' onClick={toggleButton ? this.startTimer : this.stopTimer}>{ toggleButton ? 'Start' : 'Stop'}</Button>
           </div>
         </div>
       </div>

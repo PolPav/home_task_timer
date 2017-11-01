@@ -27,7 +27,8 @@ body {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  border: 1px lightskyblue solid;
+  background-color: whitesmoke;
+  border: 1px lightgray solid;
 }
 
 .wrap_timer_input_task{
@@ -37,7 +38,7 @@ body {
   font-size: 20px;
   width: 230px;
   height: 30px;
-  border: 1px lightskyblue solid;
+  background-color: whitesmoke;
 }
 
 .wrap_timer_table{
@@ -46,15 +47,19 @@ body {
 }
 
 .wrap_timer_table_tr_td{
-  width: 150px;
-  height: 75px;
-  background-color: lightskyblue;
+
+  background-color: whitesmoke;
 }
 
 
 .wrap_timer_table_button{
   width: 100px;
   height: 40px;
+}
+
+.task_info{
+  width: 50%;
+  margin-left: 24%;
 }
 
 
