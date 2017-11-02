@@ -3,8 +3,8 @@ export default function tasksStore(state = null, action) {
     const key = "allTasks";
 
     if(action.type === "ADD_TASK"){
-        const $array = [...state, action.payload];
-        const str = JSON.stringify($array);
+        const store = [...state, action.payload];
+        const str = JSON.stringify(store);
         localStorage.setItem(key, str);
 
         return JSON.parse(localStorage.getItem(key));

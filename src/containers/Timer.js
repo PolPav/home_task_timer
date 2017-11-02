@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {initTimer} from "../helpers/initTimer";
 import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
 
 class Timer extends Component {
 
@@ -23,13 +24,9 @@ class Timer extends Component {
     const id = Math.random()*start;
     const startTime = new Date(start);
     const endTime = new Date(start+past);
-    let seconds = Math.round(past/1000);
 
-    if(seconds < 10){
-      seconds = `0${seconds}`;
-    }
-
-    const spentTime = `00:00:${seconds}`;
+    const timerInit = initTimer(this.state.spentTime);
+    const spentTime =  `${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`;
 
     if(this.state.taskName !== ''){
       this.props.onAddTask(
@@ -82,7 +79,7 @@ class Timer extends Component {
 
     return (
       <div className='wrap_timer'>
-        <input className="wrap_timer_input_task" placeholder="Enter task name" type="text" value={this.state.taskName} onChange={e => this.onChangeTask(e.target.value)}/>
+        <Input className="wrap_timer_input_task" placeholder="Enter task name" type="text" value={this.state.taskName} onChange={e => this.onChangeTask(e.target.value)}/>
         <div className='wrap_timer'>
           <input className="wrap_timer_input" value={`${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`} readOnly/>
           <div className='wrap_timer_buttons'>
