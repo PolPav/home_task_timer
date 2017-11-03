@@ -15,6 +15,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props.tasksStore);
     // const store = [];
     // const str = JSON.stringify(store);
     // localStorage.setItem('allTasks', str);
@@ -48,24 +49,25 @@ class App extends Component {
                   {hours: 23, count: 0}
 
       ];
+        if(this.props.tasksStore !== null) {
+            this.props.tasksStore.map((task) => {
+                let startTime = new Date(task.startTime);
+                let endTime = new Date(task.endTime);
+                let startHours = startTime.getHours();
+                let startMinutes = startTime.getMinutes();
+                let startSeconds = startTime.getSeconds();
+                let endSeconds = endTime.getSeconds();
+                let endHours = endTime.getHours();
+                let endMinutes = endTime.getMinutes();
 
-    this.props.tasksStore.map((task) => {
-      let startTime = new Date(task.startTime);
-      let endTime = new Date(task.endTime);
-      let startHours = startTime.getHours();
-      let startMinutes = startTime.getMinutes();
-      let startSeconds = startTime.getSeconds();
-      let endSeconds = endTime.getSeconds();
-      let endHours = endTime.getHours();
-      let endMinutes = endTime.getMinutes();
-
-      for(let i = 0; i < 24; i++){
-        if(data[i].hours === startHours){
-          data[i].count = ((endHours - startHours) + (endMinutes - startMinutes) + (endSeconds - startSeconds));
+                for (let i = 0; i < 24; i++) {
+                    if (data[i].hours === startHours) {
+                        data[i].count = ((endHours - startHours) + (endMinutes - startMinutes) + (endSeconds - startSeconds));
+                    }
+                }
+                console.log(`startHours:${startHours} endHours:${endHours}startMin:${startMinutes} endMin:${endMinutes} startSec:${startSeconds} endSec:${endSeconds}`);
+            });
         }
-      }
-      console.log(`startHours:${startHours} endHours:${endHours}startMin:${startMinutes} endMin:${endMinutes} startSec:${startSeconds} endSec:${endSeconds}`);
-    });
 
     if(!this.props.tasksStore){
       return (
