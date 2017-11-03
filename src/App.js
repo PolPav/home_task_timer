@@ -24,7 +24,7 @@ class App extends Component {
 
     render() {
 
-      let data = [{hours: 0, minutes: 0, count: 0},
+      const data = [{hours: 0, minutes: 0, count: 0},
                   {hours: 1, minutes: 10, count: 0},
                   {hours: 2, minutes: 20, count: 0},
                   {hours: 3, minutes: 30, count: 0},
@@ -52,21 +52,19 @@ class App extends Component {
       ];
         if(this.props.tasksStore !== null) {
             this.props.tasksStore.map((task) => {
-                let startTime = new Date(task.startTime);
-                let endTime = new Date(task.endTime);
-                let startHours = startTime.getHours();
-                let startMinutes = startTime.getMinutes();
-                let startSeconds = startTime.getSeconds();
-                let endSeconds = endTime.getSeconds();
-                let endHours = endTime.getHours();
-                let endMinutes = endTime.getMinutes();
+                const startTime = new Date(task.startTime);
+                const endTime = new Date(task.endTime);
+                const startHours = startTime.getHours();
+                const startMinutes = startTime.getMinutes();
+                const endMinutes = endTime.getMinutes();
 
                 for (let i = 0; i < 24; i++) {
                     if (data[i].hours === startHours) {
-                        data[i].count = ((endHours - startHours) + (endMinutes - startMinutes) + (endSeconds - startSeconds));
+                        if((endMinutes - startMinutes) > 0){
+                            data[i].count = (endMinutes - startMinutes);
+                        }
                     }
                 }
-                console.log(`startHours:${startHours} endHours:${endHours}startMin:${startMinutes} endMin:${endMinutes} startSec:${startSeconds} endSec:${endSeconds}`);
             });
         }
 
