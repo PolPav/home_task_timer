@@ -63,6 +63,10 @@ class App extends Component {
                         if((endMinutes - startMinutes) > 0){
                             data[i].count = (endMinutes - startMinutes);
                         }
+                        //
+                        // else if((endMinutes - startMinutes) < 0) {
+                        //     data[i].count = 60;
+                        // }
                     }
                 }
             });
