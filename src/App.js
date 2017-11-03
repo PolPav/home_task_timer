@@ -15,10 +15,11 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.tasksStore);
-    // const store = [];
-    // const str = JSON.stringify(store);
-    // localStorage.setItem('allTasks', str);
+    if(JSON.parse(localStorage.getItem('allTasks'))  === null){
+        const store = [];
+        const str = JSON.stringify(store);
+        localStorage.setItem('allTasks', str);
+    }
   }
 
     render() {
