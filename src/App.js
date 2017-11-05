@@ -61,8 +61,10 @@ class App extends Component {
             const startMinutes = startTime.getMinutes();
             const endMinutes = endTime.getMinutes();
             const day = startTime.getDate();
+            const month = startTime.getMonth();
+            const year = startTime.getYear();
 
-            if (day === new Date().getDate()){
+            if (day === new Date().getDate() && month === new Date().getMonth() && year === new Date().getYear()){
               for (let i = 0; i < 24; i++) {
                 if (data[i].hours === startHours) {
                   if ((endMinutes - startMinutes) > 0) {
