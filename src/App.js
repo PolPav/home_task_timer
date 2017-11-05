@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Timer from './containers/Timer';
+import Timer from './components/Timer';
 import { bindActionCreators } from 'redux';
 import { getInfoTask } from './actions/getInfoTask';
 import { deleteTask } from './actions/deleteTask';
@@ -16,9 +16,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(JSON.parse(localStorage.getItem('allTasks'))  === null){
-        const store = [];
-        const str = JSON.stringify(store);
-        localStorage.setItem('allTasks', str);
+      const store = [];
+      const str = JSON.stringify(store);
+      localStorage.setItem('allTasks', str);
     }
   }
 
@@ -50,26 +50,39 @@ class App extends Component {
                   {hours: 23, count: 0}
 
       ];
-        if(this.props.tasksStore !== null) {
-            this.props.tasksStore.map((task) => {
-                const startTime = new Date(task.startTime);
-                const endTime = new Date(task.endTime);
-                const startHours = startTime.getHours();
-                const startMinutes = startTime.getMinutes();
-                const endMinutes = endTime.getMinutes();
 
-                for (let i = 0; i < 24; i++) {
-                    if (data[i].hours === startHours) {
-                        if((endMinutes - startMinutes) > 0){
-                            data[i].count = (endMinutes - startMinutes);
-                        }
-                        //
-                        // else if((endMinutes - startMinutes) < 0) {
-                        //     data[i].count = 60;
-                        // }
+        if(this.props.tasksStore !== null) {
+          this.props.tasksStore.map((task) => {
+
+            const startTime = new Date(task.startTime);
+            const endTime = new Date(task.endTime);
+            const startHours = startTime.getHours();
+            const endHours = endTime.getHours();
+            const startMinutes = startTime.getMinutes();
+            const endMinutes = endTime.getMinutes();
+            const day = startTime.getDate();
+
+            if (day === new Date().getDate()){
+              for (let i = 0; i < 24; i++) {
+                if (data[i].hours === startHours) {
+                  if ((endMinutes - startMinutes) > 0) {
+                    data[i].count = (endMinutes - startMinutes);
+                  }
+
+                  if ((endHours - startHours) > 0) {
+                    const diffHour = endHours - startHours;
+                    data[i].count = 60 - startMinutes;
+
+                    for (let j = 1; j <= diffHour; j++) {
+                      data[i + j].count = 60;
+                      data[i + diffHour].count = endMinutes;
+
                     }
+                  }
                 }
-            });
+              }
+            }
+          });
         }
 
     if(!this.props.tasksStore){
@@ -119,7 +132,7 @@ class App extends Component {
                 <TableCell className="wrap_timer_table_tr_td">{new Date(task.startTime).toString()}</TableCell>
                 <TableCell className="wrap_timer_table_tr_td">{new Date(task.endTime).toString()}</TableCell>
                 <TableCell className="wrap_timer_table_tr_td">{task.spentTime}</TableCell>
-                <TableCell className="wrap_timer_table_tr_td"><Button raised className="wrap_timer_table_button" onClick={() => this.props.getInfoTask(task)}><Link to="/info">Info</Link></Button></TableCell>
+                <TableCell className="wrap_timer_table_tr_td"><Button raised className="wrap_timer_table_button" onClick={() => this.props.getInfoTask(task)}><Link to={`/info/${task.id}`}>Info</Link></Button></TableCell>
                 <TableCell className="wrap_timer_table_tr_td"><Button raised className="wrap_timer_table_button" onClick={() => this.props.deleteTask(task)}>Delete</Button></TableCell>
               </TableRow>
             )}

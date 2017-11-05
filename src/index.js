@@ -6,18 +6,18 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { allReducers } from './reducers';
-import { HashRouter, Switch, Route } from 'react-router-dom';
-import TaskInfo from "./containers/TaskInfo";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import TaskInfo from "./components/TaskInfo";
 
 const store = createStore(allReducers);
 
 ReactDOM.render(
     <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
         <Route exact path="/" component={App}/>
         <Route path="/info" component={TaskInfo}/>
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </Provider>
 , document.getElementById('root'));registerServiceWorker();

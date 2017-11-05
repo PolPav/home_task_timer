@@ -8,6 +8,7 @@ class TaskInfo extends Component {
 
   render(){
 
+    const { currentTask } = this.props;
     return (
      <div className="task_info">
        <Button raised className="wrap_timer_table_button"><Link to="/">Back</Link></Button>
@@ -22,10 +23,10 @@ class TaskInfo extends Component {
          </TableHead>
          <TableBody>
            <TableRow className="wrap_timer_table_tr">
-             <TableCell className="wrap_timer_table_tr_td">{this.props.currentTask.name}</TableCell>
-             <TableCell className="wrap_timer_table_tr_td">{this.props.currentTask.startTime}</TableCell>
-             <TableCell className="wrap_timer_table_tr_td">{this.props.currentTask.endTime}</TableCell>
-             <TableCell className="wrap_timer_table_tr_td">{this.props.currentTask.spentTime}</TableCell>
+             <TableCell className="wrap_timer_table_tr_td">{currentTask.name}</TableCell>
+             <TableCell className="wrap_timer_table_tr_td">{currentTask.startTime}</TableCell>
+             <TableCell className="wrap_timer_table_tr_td">{currentTask.endTime}</TableCell>
+             <TableCell className="wrap_timer_table_tr_td">{currentTask.spentTime}</TableCell>
            </TableRow>
          </TableBody>
        </Table>

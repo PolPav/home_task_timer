@@ -31,6 +31,11 @@ body {
   border: 1px lightgray solid;
 }
 
+.wrap_timer_input_h3{
+ margin-top: 45%;
+  color: lightskyblue;
+}
+
 .wrap_timer_input_task{
   margin-left: 270px;
   margin-top: 10px;

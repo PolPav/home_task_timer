@@ -21,7 +21,7 @@ class Timer extends Component {
   }
 
   addTask = (start = null, past = null) => {
-    const id = Math.random()*start;
+    const id = Math.random();
     const startTime = new Date(start);
     const endTime = new Date(start+past);
 
@@ -38,7 +38,7 @@ class Timer extends Component {
           spentTime: spentTime
         });
 
-      this.state.taskName = '';
+      this.setState({taskName: ''});
 
     } else {
       alert("Enter task name");
@@ -81,7 +81,9 @@ class Timer extends Component {
       <div className='wrap_timer'>
         <Input className="wrap_timer_input_task" placeholder="Enter task name" type="text" value={this.state.taskName} onChange={e => this.onChangeTask(e.target.value)}/>
         <div className='wrap_timer'>
-          <input className="wrap_timer_input" value={`${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`} readOnly/>
+          <div className="wrap_timer_input">
+            <h3 className="wrap_timer_input_h3">{`${timerInit.hours}:${timerInit.minutes}:${timerInit.seconds}`}</h3>
+          </div>
           <div className='wrap_timer_buttons'>
             <Button raised className='wrap_timer_button' onClick={toggleButton ? this.startTimer : this.stopTimer}>{ toggleButton ? 'Start' : 'Stop'}</Button>
           </div>
