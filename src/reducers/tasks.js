@@ -16,5 +16,5 @@ export default function tasksStore(state = null, action) {
       return JSON.parse(localStorage.getItem(key));
     }
 
-    return state
+    return state;
 }
