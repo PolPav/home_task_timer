@@ -99,10 +99,6 @@ class Timer extends Component {
     const timer = this.state.spentTime;
     const str = JSON.stringify(timer);
     localStorage.setItem('timer', str);
-<<<<<<< HEAD
-
-=======
->>>>>>> 32919b984f508b4f3e88e254fe1b21ddf32a56ec
   };
 
   onChangeTask = (e) => {
