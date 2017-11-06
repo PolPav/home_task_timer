@@ -66,7 +66,7 @@ class Timer extends Component {
   };
 
   differenceTime = () => {
-    this.setState({spentTime: new Date() - this.nowDate+6800000});
+    this.setState({spentTime: new Date() - this.nowDate});
   };
 
   onChangeTask = (e) => {
