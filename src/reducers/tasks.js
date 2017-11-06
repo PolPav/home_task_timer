@@ -1,5 +1,6 @@
 
 export default function tasksStore(state = null, action) {
+
     const key = "allTasks";
 
     if(action.type === "ADD_TASK"){
@@ -11,6 +12,7 @@ export default function tasksStore(state = null, action) {
     }
 
     if(JSON.parse(localStorage.getItem(key)) !== null){
+
       return JSON.parse(localStorage.getItem(key));
     }
 

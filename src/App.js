@@ -14,6 +14,7 @@ import { CartesianGrid, XAxis, YAxis, BarChart, Bar } from 'recharts';
 class App extends Component {
 
   constructor(props) {
+
     super(props);
     if(JSON.parse(localStorage.getItem('allTasks'))  === null){
       const store = [];
@@ -65,6 +66,7 @@ class App extends Component {
             const year = startTime.getYear();
 
             if (day === new Date().getDate() && month === new Date().getMonth() && year === new Date().getYear()){
+
               for (let i = 0; i < 24; i++) {
                 if (data[i].hours === startHours) {
                   if ((endMinutes - startMinutes) > 0) {
@@ -88,6 +90,7 @@ class App extends Component {
         }
 
     if(!this.props.tasksStore){
+
       return (
         <MuiThemeProvider>
           <div className='wrap_timer'>
@@ -154,12 +157,14 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+
   return {
     tasksStore: state.tasks,
   }
 }
 
 function matchDispatchToProps(dispatch) {
+
   return bindActionCreators({getInfoTask: getInfoTask, deleteTask: deleteTask}, dispatch)
 }
 

@@ -12,8 +12,10 @@ export default function deleteTask(state = [], action) {
           window.location.reload();
       }
     });
+
     return JSON.parse(localStorage.getItem('allTasks'));
 
   }
+
   return state;
 }

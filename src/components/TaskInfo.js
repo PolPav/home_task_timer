@@ -9,6 +9,7 @@ class TaskInfo extends Component {
   render(){
 
     const { currentTask } = this.props;
+
     return (
      <div className="task_info">
        <Button raised className="wrap_timer_table_button"><Link to="/">Back</Link></Button>
@@ -37,6 +38,7 @@ class TaskInfo extends Component {
 }
 
 function mapStateToProps(state) {
+
   return {
     currentTask: state.currentTask
   }

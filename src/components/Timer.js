@@ -7,11 +7,14 @@ import Input from 'material-ui/Input';
 class Timer extends Component {
 
   constructor(props){
+
     super(props);
+
+    this.reloadTime = JSON.parse(localStorage.getItem('timer'));
     this.state = {
 
       spentTime: 0,
-      toggleButton: true,
+      toggleButton: false,
       taskName: '',
 
       timeStart: {
@@ -20,7 +23,27 @@ class Timer extends Component {
     };
   }
 
+  componentWillMount(){
+
+    if(this.reloadTime !== null){
+      this.nowDate = Date.now() - this.reloadTime;
+
+      const dateMs = this.nowDate;
+      this.setState({timeStart: {dateMs: dateMs}});
+      this.setState({toggleButton: false});
+
+      this.timer = setInterval(
+        () => this.differenceTime(),
+        1000
+      );
+
+    } else {
+      this.setState({toggleButton: true});
+    }
+  };
+
   addTask = (start = null, past = null) => {
+
     const id = Math.random();
     const startTime = new Date(start);
     const endTime = new Date(start+past);
@@ -42,10 +65,12 @@ class Timer extends Component {
 
     } else {
       alert("Enter task name");
+      this.setState({toggleButton: false});
     }
   };
 
   startTimer = () => {
+
     this.setState({toggleButton: false});
     this.nowDate = Date.now();
 
@@ -59,21 +84,30 @@ class Timer extends Component {
   };
 
   stopTimer = () => {
+
     this.setState({toggleButton: true});
     const startDate = this.state.timeStart;
     this.addTask(startDate.dateMs, this.state.spentTime);
+    localStorage.setItem('timer', null);
     clearInterval(this.timer);
+
   };
 
   differenceTime = () => {
-    this.setState({spentTime: new Date() - this.nowDate+6800000});
+
+    this.setState({spentTime: new Date() - this.nowDate});
+    const timer = this.state.spentTime;
+    const str = JSON.stringify(timer);
+    localStorage.setItem('timer', str);
   };
 
   onChangeTask = (e) => {
+
     this.setState({taskName: e});
   };
 
   render() {
+
     const { spentTime, toggleButton } = this.state;
     const timerInit = initTimer(spentTime);
 
