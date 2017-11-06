@@ -94,11 +94,15 @@ class Timer extends Component {
   };
 
   differenceTime = () => {
+<<<<<<< HEAD
 
     this.setState({spentTime: new Date() - this.nowDate});
     const timer = this.state.spentTime;
     const str = JSON.stringify(timer);
     localStorage.setItem('timer', str);
+=======
+    this.setState({spentTime: new Date() - this.nowDate});
+>>>>>>> 1923b9e41cc46a8fec20fe5fd3b0679e7f756733
   };
 
   onChangeTask = (e) => {
